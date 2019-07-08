@@ -1,6 +1,6 @@
 # Park_Notifier
-An open sourced notifier for Recreation.gov website updates.
+An open sourced notifier for Recreation.gov permits and passes.
 
-This program will email a user if a change is made indicating that there is an availability in the climbing schedule for specific mountains in the US.
+This program will email a user if a change is made on the recreation.gov website, indicating that there is an availability.
 
-Please disregard the poor method of inputting Phone Numbers - this is only a temporary solution until a web application is created
+The version that this script was forked from was successfully used in the summers of 2017 and 2018 to get 8+ permits. 
