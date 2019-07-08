@@ -28,6 +28,7 @@ driver.get("https://www.recreation.gov/permits/233260")
 
 while(1):
 	for date in dates_of_interest:
+		time.sleep(2) # Allow some time to fetch results
 		driver.find_element_by_id('division-selection-select').click()
 		driver.find_element_by_class_name('rec-select-options').click() #select the first item in drop-down which is the day-hike option
 		time.sleep(2) # Allow some time to fetch results
@@ -38,7 +39,7 @@ while(1):
 		if("Available" in availability):
 			output_string = "Found " + availability.split()[2] + " slots available for " + date
 			for email in mailing_list:
-				Email(output_string)
+				Email(output_string, sendemail=email)
 		else:
 			print("Sorry, nothing available")
 
