@@ -9,10 +9,10 @@ Requirements to run:
 
 Python3.x
 
-Packages: yagmail, selenium
+Packages: yagmail, keyring, selenium
 
 Binaries: chrome driver for selenium https://sites.google.com/a/chromium.org/chromedriver/downloads
 
 mailing_list.txt file with one email address per line, and nothing else in the file
 
-email.txt with only one line in this form <email address you want to send from>:<its password>
+email.txt with only one line in this form \<email address you want to send from\>:\<its password\>
