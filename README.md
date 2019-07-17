@@ -9,7 +9,7 @@ Requirements to run:
 
 Python3.x
 
-Packages: yagmail, selenium
+Packages: yagmail, keyring, selenium
 
 Binaries: chrome driver for selenium https://sites.google.com/a/chromium.org/chromedriver/downloads
 
