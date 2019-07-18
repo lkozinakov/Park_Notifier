@@ -26,7 +26,11 @@ dates_of_interest = ['07/27/2019', '08/03/2019', '08/10/2019', '08/17/2019', '08
 mailing_list = [line.rstrip('\n') for line in open('mailing_list.txt')]
 
 inyo_wilderness_permit_code = "JM23"
-driver = webdriver.Chrome()
+options = webdriver.ChromeOptions()
+options.add_argument('--ignore-certificate-errors')
+options.add_argument('--ignore-ssl-errors')
+options.add_argument('log-level=3')
+driver = webdriver.Chrome(chrome_options=options)
 driver.get("https://www.recreation.gov/permits/233262/registration/detailed-availability")
 
 

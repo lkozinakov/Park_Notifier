@@ -25,19 +25,24 @@ dates_of_interest = ['Saturday, July 27, 2019', 'Saturday, August 3, 2019', 'Sat
 
 mailing_list = [line.rstrip('\n') for line in open('mailing_list.txt')]
 
-driver = webdriver.Chrome()
+options = webdriver.ChromeOptions()
+options.add_argument('--ignore-certificate-errors')
+options.add_argument('--ignore-ssl-errors')
+options.add_argument('log-level=3')
+driver = webdriver.Chrome(chrome_options=options)
 driver.get("https://www.recreation.gov/permits/233260")
 
 while(1):
     for type in '12':
         for date in dates_of_interest:
             if(parse(str(dt.today())) <= parse(date)):
-                time.sleep(7) # Allow some time to fetch results
+                time.sleep(4) # Allow some time to fetch results
                 driver.find_element_by_id('division-selection-select').click()
                 #select the item in drop-down for type of permit (day vs overnight)
+                time.sleep(3)
                 driver.find_element_by_xpath("//div[@id='division-selection']/div/div/ul/li[" + type + "]").click()
-                time.sleep(7) # Allow some time to fetch results
-                driver.find_element_by_id('number-input').send_keys("1") #select number of people, 1 is minimum
+                time.sleep(4) # Allow some time to fetch results
+                driver.find_element_by_xpath("//input[@id='number-input-']").send_keys("1") #select number of people, 1 is minimum
                 #fetch the availability for the specified date
                 availability = driver.find_element_by_xpath("//button[@aria-label='" + date + "']/div[1]/div[1]").get_attribute('aria-label')
 
