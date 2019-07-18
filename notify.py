@@ -37,7 +37,7 @@ while(1):
         for date in dates_of_interest:
             if(parse(str(dt.today())) <= parse(date)):
                 time.sleep(4) # Allow some time to fetch results
-                driver.find_element_by_id('division-selection-select').click()
+                driver.find_element_by_xpath("//button[@id='division-selection-select']").click()
                 #select the item in drop-down for type of permit (day vs overnight)
                 time.sleep(3)
                 driver.find_element_by_xpath("//div[@id='division-selection']/div/div/ul/li[" + type + "]").click()
