@@ -19,7 +19,7 @@ def Email(newtext, myemail=None, password=None, sendemail=None):
     yagmail.SMTP(myemail).send(sendemail, newtext, "You only have a few minutes!\n\nLink: https://www.recreation.gov/permits/233260")
     print('sent email')
 
-time_to_sleep = 30 #sleep for 30 seconds before trying again
+time_to_sleep = 60 #sleep for 60 seconds before trying again
 number_of_times_checked = 0
 dates_of_interest = ['Saturday, July 27, 2019', 'Saturday, August 3, 2019', 'Saturday, August 10, 2019', 'Saturday, August 17, 2019', 'Saturday, August 24, 2019', 'Saturday, August 31, 2019']
 
@@ -32,11 +32,11 @@ while(1):
     for type in '12':
         for date in dates_of_interest:
             if(parse(str(dt.today())) <= parse(date)):
-                time.sleep(4) # Allow some time to fetch results
+                time.sleep(7) # Allow some time to fetch results
                 driver.find_element_by_id('division-selection-select').click()
                 #select the item in drop-down for type of permit (day vs overnight)
                 driver.find_element_by_xpath("//div[@id='division-selection']/div/div/ul/li[" + type + "]").click()
-                time.sleep(4) # Allow some time to fetch results
+                time.sleep(7) # Allow some time to fetch results
                 driver.find_element_by_id('number-input').send_keys("1") #select number of people, 1 is minimum
                 #fetch the availability for the specified date
                 availability = driver.find_element_by_xpath("//button[@aria-label='" + date + "']/div[1]/div[1]").get_attribute('aria-label')

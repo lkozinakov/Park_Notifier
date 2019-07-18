@@ -19,7 +19,7 @@ def Email(newtext, myemail=None, password=None, sendemail=None):
     yagmail.SMTP(myemail).send(sendemail, newtext, "You only have a few minutes!\n\nLink: https://www.recreation.gov/permits/233262/registration/detailed-availability")
     print('sent email')
 
-time_to_sleep = 30 #sleep for 30 seconds before trying again
+time_to_sleep = 60 #sleep for 60 seconds before trying again
 number_of_times_checked = 0
 dates_of_interest = ['07/27/2019', '08/03/2019', '08/10/2019', '08/17/2019', '08/24/2019', '08/31/2019']
 
@@ -41,14 +41,14 @@ while(1):
             driver.find_element_by_id("division-search-input").send_keys(inyo_wilderness_permit_code)
             # Apply the filter
             driver.find_element_by_xpath("//button[@class='sarsa-button rec-button-primary sarsa-button-primary sarsa-button-md']").click()
-            time.sleep(2) # Allow some time to fetch results
+            time.sleep(7) # Allow some time to fetch results
             # Select number of people (1 minimum)
             driver.find_element_by_id('number-input').send_keys("1")
-            time.sleep(2) # Allow some time to fetch results
+            time.sleep(7) # Allow some time to fetch results
             # Select NO for this being a commercial trip
             driver.find_element_by_xpath("//*[@id='per-availability-main']/div/div[1]/div[2]/div/div/fieldset/div/div[2]").click()
             #driver.find_element_by_xpath("//div[@class='rec-form-inline-item-wrap']/div[2]/label[@class='rec-label-radio']/span[@class='rec-input-radio']").click()
-            time.sleep(4) # Allow some time to fetch results
+            time.sleep(7) # Allow some time to fetch results
             # Extract availability for date in question
             values = driver.find_element_by_xpath("//table[@class='rec-availability-table']/tbody/tr/td[4]")
 
