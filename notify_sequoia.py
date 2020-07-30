@@ -53,7 +53,7 @@ while(1):
                 driver.find_element_by_xpath("//*[@id='single-date-picker-1']").send_keys(date)
                 time.sleep(4)
 
-                the_rows = lodgepole_driver.find_elements_by_xpath("//*[@id='availability-table']/tbody/tr")
+                the_rows = driver.find_elements_by_xpath("//*[@id='availability-table']/tbody/tr")
                 for row in the_rows:
                     result = row.find_element_by_xpath(".//td[2]/div/button").get_attribute('aria-label')
                     if("is available" in result):
