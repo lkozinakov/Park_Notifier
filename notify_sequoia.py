@@ -30,34 +30,38 @@ options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--ignore-ssl-errors')
 options.add_argument('log-level=3')
-driver = webdriver.Chrome(chrome_options=options)
-driver.get("https://www.recreation.gov/camping/campgrounds/232461/availability")
-#driver = webdriver.Chrome(chrome_options=options)
-#driver.get("https://www.recreation.gov/camping/campgrounds/232461/availability")
-#driver = webdriver.Chrome(chrome_options=options)
-#driver.get("https://www.recreation.gov/camping/campgrounds/232461/availability")
+lodgepole_driver = webdriver.Chrome(chrome_options=options)
+lodgepole_driver.get("https://www.recreation.gov/camping/campgrounds/232461/availability")
+stony_creek_driver = webdriver.Chrome(chrome_options=options)
+stony_creek_driver.get("https://www.recreation.gov/camping/campgrounds/232785/availability")
+potwisha_driver = webdriver.Chrome(chrome_options=options)
+potwisha_driver.get("https://www.recreation.gov/camping/campgrounds/249979/availability")
+
+campground_drivers = [lodgepole_driver, stony_creek_driver, potwisha_driver]
 
 while(1):
-    for date in dates_of_interest:
-        if(parse(str(dt.today())) <= parse(date)):
-            time.sleep(4) # Allow some time to fetch results
-            
-            #First set the date to the desired date
-            driver.find_element_by_xpath("//*[@id='single-date-picker-1']").send_keys(date)
-            time.sleep(1)
-            driver.find_element_by_xpath("//*[@id='single-date-picker-1']").send_keys(Keys.CONTROL,"a")
-            time.sleep(1)
-            driver.find_element_by_xpath("//*[@id='single-date-picker-1']").send_keys(date)
-            time.sleep(4)
-            
-            for row in range(2408,2508):
-                result = driver.find_element_by_xpath("//*[@id='" + str(row) + "']/td[2]/div/button").get_attribute('aria-label')
-                if("is available" in result):
-                    output_string = "Lodgepole Campground: " + result
-                    for email in mailing_list:
-                        Email(output_string, sendemail=email)
-                else:
-                    print(result)
+    for driver in campground_drivers:
+        for date in dates_of_interest:
+            if(parse(str(dt.today())) <= parse(date)):
+                time.sleep(4) # Allow some time to fetch results
 
-            driver.refresh()
+                #First set the date to the desired date
+                driver.find_element_by_xpath("//*[@id='single-date-picker-1']").send_keys(date)
+                time.sleep(1)
+                driver.find_element_by_xpath("//*[@id='single-date-picker-1']").send_keys(Keys.CONTROL,"a")
+                time.sleep(1)
+                driver.find_element_by_xpath("//*[@id='single-date-picker-1']").send_keys(date)
+                time.sleep(4)
+
+                the_rows = lodgepole_driver.find_elements_by_xpath("//*[@id='availability-table']/tbody/tr")
+                for row in the_rows:
+                    result = row.find_element_by_xpath(".//td[2]/div/button").get_attribute('aria-label')
+                    if("is available" in result):
+                        output_string = "Lodgepole Campground: " + result
+                        for email in mailing_list:
+                            Email(output_string, sendemail=email)
+                    else:
+                        print(result)
+
+                driver.refresh()
     time.sleep(time_to_sleep)
